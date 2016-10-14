@@ -7,6 +7,6 @@
 //
 
 enum LearningMode {
-    case Repetition
-    case Random
+    case repetition
+    case random
 }

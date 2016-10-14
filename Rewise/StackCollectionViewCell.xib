@@ -1,17 +1,14 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="SF-UI-Text-Ultrathin.otf">
+        <array key="SF-UI-Text-Ultrathin.otf">
             <string>SFUIText-Ultrathin</string>
-            <string>SFUIText-Ultrathin</string>
-            <string>SFUIText-Ultrathin</string>
-            <string>SFUIText-Ultrathin</string>
-            <string>SFUIText-Ultrathin</string>
-        </mutableArray>
+        </array>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -24,34 +21,29 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zek-4J-tNK" userLabel="backContainerView">
-                        <rect key="frame" x="0.0" y="0.0" width="256" height="335"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UIp-HZ-qom">
-                                <rect key="frame" x="102" y="290" width="52" height="41"/>
                                 <fontDescription key="fontDescription" name="SFUIText-Ultrathin" family="SF UI Text" pointSize="24"/>
                                 <state key="normal" title="Start">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="JgX-rP-h7u">
-                                <rect key="frame" x="5" y="259" width="246" height="23"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Next repeat:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vez-ml-Kmn">
-                                        <rect key="frame" x="0.0" y="0.0" width="106" height="23"/>
                                         <fontDescription key="fontDescription" name="SFUIText-Ultrathin" family="SF UI Text" pointSize="19"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="26/08/16" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SDZ-Af-ssC">
-                                        <rect key="frame" x="168" y="0.0" width="78" height="23"/>
                                         <fontDescription key="fontDescription" name="SFUIText-Ultrathin" family="SF UI Text" pointSize="19"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="UIp-HZ-qom" firstAttribute="top" secondItem="JgX-rP-h7u" secondAttribute="bottom" constant="8" id="8t7-Mu-XuI"/>
                             <constraint firstAttribute="bottom" secondItem="UIp-HZ-qom" secondAttribute="bottom" constant="4" id="9O1-fY-2fD"/>
@@ -63,24 +55,20 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VOq-sm-u7g" userLabel="frontContainerView">
-                        <rect key="frame" x="0.0" y="0.0" width="256" height="335"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bXB-db-faR" userLabel="Container">
-                                <rect key="frame" x="0.0" y="0.0" width="256" height="335"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Stack" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="bYm-bf-ipc">
-                                        <rect key="frame" x="11" y="110" width="234" height="116"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="116" id="181-1E-5X1"/>
                                             <constraint firstAttribute="width" constant="234" id="5pf-Jl-FGQ"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="SFUIText-Ultrathin" family="SF UI Text" pointSize="32"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="3Ba-bP-AfU" userLabel="textField">
-                                        <rect key="frame" x="11" y="110" width="234" height="116"/>
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="234" id="JKV-fc-MrX"/>
                                             <constraint firstAttribute="height" constant="116" id="mXP-rd-TY5"/>
@@ -94,7 +82,7 @@
                                         </connections>
                                     </textField>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="bYm-bf-ipc" firstAttribute="centerY" secondItem="bXB-db-faR" secondAttribute="centerY" constant="0.5" id="Jcj-GY-z9D"/>
                                     <constraint firstItem="3Ba-bP-AfU" firstAttribute="centerX" secondItem="bXB-db-faR" secondAttribute="centerX" id="OT3-UI-8wR"/>
@@ -103,7 +91,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="256" id="HMi-YM-VaE"/>
                             <constraint firstItem="bXB-db-faR" firstAttribute="top" secondItem="VOq-sm-u7g" secondAttribute="top" id="eb5-TA-Gsu"/>
@@ -114,7 +102,6 @@
                         </constraints>
                     </view>
                 </subviews>
-                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
                 <constraint firstItem="zek-4J-tNK" firstAttribute="centerY" secondItem="zE6-nX-gJ9" secondAttribute="centerY" id="RF5-XH-Z4t"/>

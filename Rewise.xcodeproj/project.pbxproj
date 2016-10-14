@@ -65,6 +65,9 @@
 		DBBA03441D1D4FC6003CD4A8 /* ApplicationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBA03431D1D4FC6003CD4A8 /* ApplicationCoordinator.swift */; };
 		DBBA03601D1D96A4003CD4A8 /* MenuViewControllerOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBA035F1D1D96A4003CD4A8 /* MenuViewControllerOutput.swift */; };
 		DBC02FDE1D40BB7800CDC1EA /* CardEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC02FDD1D40BB7800CDC1EA /* CardEditViewController.swift */; };
+		DBC14A2D1DA5B9390031187A /* StackStorageServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC14A2C1DA5B9390031187A /* StackStorageServiceProtocol.swift */; };
+		DBC14A331DA5CC080031187A /* RealmStorageMapperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC14A321DA5CC080031187A /* RealmStorageMapperProtocol.swift */; };
+		DBC14A351DA5CC2D0031187A /* RealmStorageMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC14A341DA5CC2D0031187A /* RealmStorageMapper.swift */; };
 		DBD8D54D1D3E663500CA0F4E /* SF-UI-Text-Ultrathin.otf in Resources */ = {isa = PBXBuildFile; fileRef = DBD8D53F1D3E663500CA0F4E /* SF-UI-Text-Ultrathin.otf */; };
 		DBD8D54E1D3E663500CA0F4E /* SF-UI-Text-UltrathinItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = DBD8D5401D3E663500CA0F4E /* SF-UI-Text-UltrathinItalic.otf */; };
 		DBD8D54F1D3E663500CA0F4E /* SF-UI-Text-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DBD8D5411D3E663500CA0F4E /* SF-UI-Text-Semibold.otf */; };
@@ -147,6 +150,9 @@
 		DBBA03431D1D4FC6003CD4A8 /* ApplicationCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationCoordinator.swift; sourceTree = "<group>"; };
 		DBBA035F1D1D96A4003CD4A8 /* MenuViewControllerOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewControllerOutput.swift; sourceTree = "<group>"; };
 		DBC02FDD1D40BB7800CDC1EA /* CardEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardEditViewController.swift; sourceTree = "<group>"; };
+		DBC14A2C1DA5B9390031187A /* StackStorageServiceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackStorageServiceProtocol.swift; sourceTree = "<group>"; };
+		DBC14A321DA5CC080031187A /* RealmStorageMapperProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmStorageMapperProtocol.swift; sourceTree = "<group>"; };
+		DBC14A341DA5CC2D0031187A /* RealmStorageMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmStorageMapper.swift; sourceTree = "<group>"; };
 		DBD8D53F1D3E663500CA0F4E /* SF-UI-Text-Ultrathin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Text-Ultrathin.otf"; sourceTree = "<group>"; };
 		DBD8D5401D3E663500CA0F4E /* SF-UI-Text-UltrathinItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Text-UltrathinItalic.otf"; sourceTree = "<group>"; };
 		DBD8D5411D3E663500CA0F4E /* SF-UI-Text-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Text-Semibold.otf"; sourceTree = "<group>"; };
@@ -199,9 +205,9 @@
 			isa = PBXGroup;
 			children = (
 				DB06C4D51D225318005F58B6 /* InspectingStacksViewController.swift */,
+				DB06C4D71D225328005F58B6 /* InspectingStacksViewControllerOutput.swift */,
 				DB7261CA1D24166A00C3DCEC /* InspectorStacksTableViewController.swift */,
 				DBC02FDD1D40BB7800CDC1EA /* CardEditViewController.swift */,
-				DB06C4D71D225328005F58B6 /* InspectingStacksViewControllerOutput.swift */,
 				DB7261AB1D23F3C000C3DCEC /* StackCollectionCell */,
 				DB7261DC1D24289400C3DCEC /* Expanding Collection */,
 			);
@@ -237,7 +243,7 @@
 				DBBA03331D1D47B2003CD4A8 /* ViewControllers */,
 				DBBA03491D1D70C5003CD4A8 /* Coordinator */,
 				DB3ED2AD1D1BEE0900E574F8 /* Domain */,
-				DBD8D55E1D3E7A5900CA0F4E /* StackStorage.swift */,
+				DB9E3F3C1DA6CFD6004D2B43 /* Storage */,
 				DB3ED2991D1BEA9C00E574F8 /* Main.storyboard */,
 				DBBA03311D1D479F003CD4A8 /* Helpers.swift */,
 				DBD8D55C1D3E679D00CA0F4E /* Transitions.swift */,
@@ -302,6 +308,17 @@
 				DB78BC331D20741300905D15 /* LearningCoordinatorOutput.swift */,
 			);
 			name = "Learning Flow";
+			sourceTree = "<group>";
+		};
+		DB9E3F3C1DA6CFD6004D2B43 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				DBC14A2C1DA5B9390031187A /* StackStorageServiceProtocol.swift */,
+				DBD8D55E1D3E7A5900CA0F4E /* StackStorage.swift */,
+				DBC14A321DA5CC080031187A /* RealmStorageMapperProtocol.swift */,
+				DBC14A341DA5CC2D0031187A /* RealmStorageMapper.swift */,
+			);
+			name = Storage;
 			sourceTree = "<group>";
 		};
 		DBBA03331D1D47B2003CD4A8 /* ViewControllers */ = {
@@ -413,12 +430,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = IgorNikolaev;
 				TargetAttributes = {
 					DB3ED2911D1BEA9C00E574F8 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = KWT862S93C;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -533,6 +551,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBA1B8711D887A79001A518B /* MemorizationLevel.swift in Sources */,
+				DBC14A2D1DA5B9390031187A /* StackStorageServiceProtocol.swift in Sources */,
 				DBBA033B1D1D4EB1003CD4A8 /* Coordinator.swift in Sources */,
 				DB7261F81D2428CC00C3DCEC /* ConstraintsHelper.swift in Sources */,
 				DBA1B8731D889765001A518B /* LearningModeSelectionViewController.swift in Sources */,
@@ -548,6 +567,7 @@
 				DB7261F61D2428CC00C3DCEC /* SubviewsForEach.swift in Sources */,
 				DBBA03411D1D4F50003CD4A8 /* RouterImp.swift in Sources */,
 				DBBA033D1D1D4EC6003CD4A8 /* Router.swift in Sources */,
+				DBC14A331DA5CC080031187A /* RealmStorageMapperProtocol.swift in Sources */,
 				DBD8D55D1D3E679D00CA0F4E /* Transitions.swift in Sources */,
 				DBA1B8751D889781001A518B /* LearningModeSelectionCoordinatorOutput.swift in Sources */,
 				DBBA033F1D1D4EF9003CD4A8 /* BaseCoordinator.swift in Sources */,
@@ -576,6 +596,7 @@
 				DBD8D55F1D3E7A5900CA0F4E /* StackStorage.swift in Sources */,
 				DB7261FC1D2428CC00C3DCEC /* TransitionDriver.swift in Sources */,
 				DB7261F41D2428CC00C3DCEC /* PageCollectionView.swift in Sources */,
+				DBC14A351DA5CC2D0031187A /* RealmStorageMapper.swift in Sources */,
 				DB7261F91D2428CC00C3DCEC /* ConfigurationHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -616,8 +637,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -662,8 +685,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -682,6 +707,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -690,6 +716,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E8B209FDAF7AD87280B11C6D /* Pods-Rewise.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
@@ -699,6 +726,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = INR.Rewise;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -706,6 +734,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4D9EB6F8BF78F0A90236B6FB /* Pods-Rewise.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
@@ -713,6 +742,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = INR.Rewise;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

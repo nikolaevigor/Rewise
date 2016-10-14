@@ -23,10 +23,12 @@ class CardEditViewController: UIViewController, UITextFieldDelegate {
         cardTitle.text = card?.title
         textView.text = card?.text
         
-        self.navigationController?.navigationBar.hidden = true
+        
+        
+        self.navigationController?.navigationBar.isHidden = true
         
         let swipe = UISwipeGestureRecognizer(target: self, action: #selector(CardEditViewController.returnToStack))
-        swipe.direction = .Right
+        swipe.direction = .right
         self.view.addGestureRecognizer(swipe)
     }
     
@@ -34,29 +36,33 @@ class CardEditViewController: UIViewController, UITextFieldDelegate {
         
         card?.text = textView.text
         
-        self.navigationController?.popViewControllerAnimated(true)
+        let stackStorage = StackStorage()
+        stackStorage.save(card: card!)
+        
+        _ = self.navigationController?.popViewController(animated: true)
         onReturn?(card!)
     }
     
-    @IBAction func textFieldEditingBegin(sender: AnyObject) {
-        self.cardTitle.hidden = true
-        self.textField.hidden = false
+    @IBAction func textFieldEditingBegin(_ sender: AnyObject) {
+        self.cardTitle.isHidden = true
+        self.textField.isHidden = false
     }
     
-    @IBAction func textFieldEditingDidEnd(sender: AnyObject) {
+    @IBAction func textFieldEditingDidEnd(_ sender: AnyObject) {
         self.cardTitle.text = self.textField.text!
-        self.cardTitle.hidden = false
+        self.cardTitle.isHidden = false
+        self.textField.isHidden = true
         
         card?.title = self.cardTitle.text!
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         textField.text = ""
         return false
     }
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
     

@@ -14,7 +14,7 @@ class CoreTabController: UITabBarController, CoreTabControllerOutput, CanPaintBa
     
     override func viewDidLoad() {
         self.applyGradientOnBackground()
-        self.tabBar.hidden = true
+        self.tabBar.isHidden = true
         self.onMenu?()
     }
     

@@ -23,7 +23,7 @@ class LearningModeSelectionViewController: UIViewController, LearningModeSelecti
         view.backgroundColor = Constants.lightColor
         
         let swipe = UISwipeGestureRecognizer(target: self, action: #selector(LearningModeSelectionViewController.showMenu))
-        swipe.direction = .Right
+        swipe.direction = .right
         self.view.addGestureRecognizer(swipe)
         
     }
@@ -32,33 +32,33 @@ class LearningModeSelectionViewController: UIViewController, LearningModeSelecti
         onMenu?()
     }
     
-    @IBAction func repetitionTouchUpOutside(sender: AnyObject) {
+    @IBAction func repetitionTouchUpOutside(_ sender: AnyObject) {
         self.repetitionUnderline.alpha = 1.0
     }
     
-    @IBAction func repetitionTouchDown(sender: AnyObject) {
+    @IBAction func repetitionTouchDown(_ sender: AnyObject) {
         self.repetitionUnderline.alpha = 0.3
     }
     
-    @IBAction func repetitionTouchUpInside(sender: AnyObject) {
+    @IBAction func repetitionTouchUpInside(_ sender: AnyObject) {
         self.repetitionUnderline.alpha = 1.0
-        onLearning?(.Repetition)
+        onLearning?(.repetition)
     }
     
-    @IBAction func randomTouchUpOutside(sender: AnyObject) {
+    @IBAction func randomTouchUpOutside(_ sender: AnyObject) {
         self.randomUnderline.alpha = 1.0
     }
     
-    @IBAction func randomTouchDown(sender: AnyObject) {
+    @IBAction func randomTouchDown(_ sender: AnyObject) {
         self.randomUnderline.alpha = 0.3
     }
     
-    @IBAction func randomTouchUpInside(sender: AnyObject) {
+    @IBAction func randomTouchUpInside(_ sender: AnyObject) {
         self.randomUnderline.alpha = 1.0
-        onLearning?(.Random)
+        onLearning?(.random)
     }
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
 }

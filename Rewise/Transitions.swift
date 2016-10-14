@@ -16,9 +16,9 @@ class TabDelegate: NSObject, UITabBarControllerDelegate {
         self.direction = direction
     }
     
-    func tabBarController(tabBarController: UITabBarController,
-                          animationControllerForTransitionFromViewController fromVC: UIViewController,
-                                                                             toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func tabBarController(_ tabBarController: UITabBarController,
+                          animationControllerForTransitionFrom fromVC: UIViewController,
+                                                                             to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return TabControllerAnimator(direction: self.direction)
     }
     
@@ -32,36 +32,36 @@ class TabControllerAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         self.direction = direction
     }
     
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return Constants.transitAnimationTime
     }
     
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        let toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
-        let fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        let toVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)
+        let fromVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)
         
-        transitionContext.containerView()!.addSubview(toVC!.view)
+        transitionContext.containerView.addSubview(toVC!.view)
         
-        let screenWidth = UIScreen.mainScreen().bounds.width
+        let screenWidth = UIScreen.main.bounds.width
         
         switch self.direction {
-        case .Left:
+        case .left:
             toVC!.view.frame.origin.x -= screenWidth
-            UIView.animateWithDuration(Constants.transitAnimationTime, animations: {
+            UIView.animate(withDuration: Constants.transitAnimationTime, animations: {
                 toVC!.view.frame.origin.x += screenWidth
                 fromVC!.view.frame.origin.x += screenWidth
                 },
                                        completion: { finished in
-                                        transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+                                        transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
             })
-        case .Right:
+        case .right:
             toVC!.view.frame.origin.x += screenWidth
-            UIView.animateWithDuration(Constants.transitAnimationTime, animations: {
+            UIView.animate(withDuration: Constants.transitAnimationTime, animations: {
                 toVC!.view.frame.origin.x -= screenWidth
                 fromVC!.view.frame.origin.x -= screenWidth
                 },
                                        completion: { finished in
-                                        transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+                                        transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
             })
         }
     }
@@ -69,10 +69,10 @@ class TabControllerAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 
 class NavDelegate: NSObject, UINavigationControllerDelegate {
     
-    func navigationController(navigationController: UINavigationController,
-                              animationControllerForOperation operation: UINavigationControllerOperation,
-                                                              fromViewController fromVC: UIViewController,
-                                                                                 toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func navigationController(_ navigationController: UINavigationController,
+                              animationControllerFor operation: UINavigationControllerOperation,
+                                                              from fromVC: UIViewController,
+                                                                                 to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return NavigationControllerAnimator(operation: operation)
     }
 }
@@ -85,43 +85,43 @@ class NavigationControllerAnimator: NSObject, UIViewControllerAnimatedTransition
         self.operation = operation
     }
     
-    func transitionDuration(context: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+    func transitionDuration(using context: UIViewControllerContextTransitioning?) -> TimeInterval {
         return Constants.transitAnimationTime
     }
     
-    func animateTransition(context: UIViewControllerContextTransitioning) {
-        let toVC = context.viewControllerForKey(UITransitionContextToViewControllerKey)
-        let fromVC = context.viewControllerForKey(UITransitionContextFromViewControllerKey)
+    func animateTransition(using context: UIViewControllerContextTransitioning) {
+        let toVC = context.viewController(forKey: UITransitionContextViewControllerKey.to)
+        let fromVC = context.viewController(forKey: UITransitionContextViewControllerKey.from)
         
         guard toVC != nil && fromVC != nil else {
             print("animation failure")
             return
         }
         
-        context.containerView()!.addSubview(toVC!.view)
+        context.containerView.addSubview(toVC!.view)
         
-        let screenWidth = UIScreen.mainScreen().bounds.width
+        let screenWidth = UIScreen.main.bounds.width
         
         switch operation {
-        case .Push:
+        case .push:
             toVC!.view.frame.origin.x = screenWidth
             fromVC!.view.frame.origin.x = 0.0
-            UIView.animateWithDuration(Constants.transitAnimationTime, animations: {
+            UIView.animate(withDuration: Constants.transitAnimationTime, animations: {
                 toVC!.view.frame.origin.x -= screenWidth
                 fromVC!.view.frame.origin.x -= screenWidth
                 },
                                        completion: { finished in
-                                        context.completeTransition(!context.transitionWasCancelled())
+                                        context.completeTransition(!context.transitionWasCancelled)
             })
-        case .Pop:
+        case .pop:
             toVC!.view.frame.origin.x = -screenWidth
             fromVC!.view.frame.origin.x = 0.0
-            UIView.animateWithDuration(Constants.transitAnimationTime, animations: {
+            UIView.animate(withDuration: Constants.transitAnimationTime, animations: {
                 toVC!.view.frame.origin.x += screenWidth
                 fromVC!.view.frame.origin.x += screenWidth
                 },
                                        completion: { finished in
-                                        context.completeTransition(!context.transitionWasCancelled())
+                                        context.completeTransition(!context.transitionWasCancelled)
             })
         default:
             print("unhandled transition")
@@ -130,6 +130,6 @@ class NavigationControllerAnimator: NSObject, UIViewControllerAnimatedTransition
 }
 
 enum TabTransitionDirection {
-    case Left
-    case Right
+    case left
+    case right
 }

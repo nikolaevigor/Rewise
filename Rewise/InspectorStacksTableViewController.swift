@@ -25,39 +25,45 @@ class InspectorStacksTableViewController: ExpandingTableViewController, UITextFi
         
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorInset.right = 30
+        tableView.separatorInset.left = 30
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.navigationController?.navigationBar.hidden = false
+        self.navigationController?.navigationBar.isHidden = false
         
         if fromEditor {
             self.navigationController?.navigationBar.frame.origin.y -= (self.navigationController?.navigationBar.frame.size.height)!
-            UIView.animateWithDuration(Constants.transitAnimationTime/2.0, animations: {
+            UIView.animate(withDuration: Constants.transitAnimationTime/2.0, animations: {
                 self.navigationController?.navigationBar.frame.origin.y += (self.navigationController?.navigationBar.frame.size.height)!
             })
         }
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell
         
-        if let cell_ = tableView.dequeueReusableCellWithIdentifier("cell") {
+        if let cell_ = tableView.dequeueReusableCell(withIdentifier: "CardTableViewCell") {
             cell = cell_
         }
         else {
-            cell = UITableViewCell(style: .Default, reuseIdentifier: "cell")
+            cell = UITableViewCell(style: .default, reuseIdentifier: "CardTableViewCell")
         }
+        cell.textLabel?.textAlignment = .center
+        cell.textLabel?.font = UIFont(name: "SFUIText-Ultrathin", size: 20.0)
         cell.textLabel?.text = stack?.cards[indexPath.row].title
+        
         return cell
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.stack?.cards.count ?? 0
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let controller = getController("CardEditViewController", storyboardIdentifier: "Main") as! CardEditViewController
         controller.card = stack!.cards[indexPath.row]
         controller.onReturn = { [weak self] card in
@@ -65,31 +71,25 @@ class InspectorStacksTableViewController: ExpandingTableViewController, UITextFi
             self?.tableView.reloadData()
         }
         
-        self.navigationController?.navigationBar.hidden = true
+        self.navigationController?.navigationBar.isHidden = true
         self.fromEditor = true
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
     
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y < -120.0 {
             self.onReturn?(stack!)
             backButtonHandler(self)
         }
     }
     
-    func buttonPressed() {
-        let card = Card(title: "new card", text: "Text")
-        self.stack?.cards.append(card)
-        self.tableView.reloadData()
-    }
-    
-    func getController(identifier: String, storyboardIdentifier: String) -> UIViewController {
+    func getController(_ identifier: String, storyboardIdentifier: String) -> UIViewController {
         let storyboard = UIStoryboard(name: storyboardIdentifier, bundle: nil)
-        return storyboard.instantiateViewControllerWithIdentifier(identifier)
+        return storyboard.instantiateViewController(withIdentifier: identifier)
     }
     
 }
@@ -98,9 +98,9 @@ class InspectorStacksTableViewController: ExpandingTableViewController, UITextFi
 
 extension InspectorStacksTableViewController {
     
-    private func configureNavBar() {
-        navigationItem.leftBarButtonItem?.image = navigationItem.leftBarButtonItem?.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
-        navigationItem.rightBarButtonItem?.image = navigationItem.rightBarButtonItem?.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
+    fileprivate func configureNavBar() {
+        navigationItem.leftBarButtonItem?.image = navigationItem.leftBarButtonItem?.image!.withRenderingMode(UIImageRenderingMode.alwaysOriginal)
+        navigationItem.rightBarButtonItem?.image = navigationItem.rightBarButtonItem?.image!.withRenderingMode(UIImageRenderingMode.alwaysOriginal)
     }
 }
 
@@ -108,13 +108,16 @@ extension InspectorStacksTableViewController {
 
 extension InspectorStacksTableViewController {
     
-    @IBAction func newCardButtonHandler(sender: AnyObject) {
-        let card = Card(title: "new card", text: "Text")
+    @IBAction func newCardButtonHandler(_ sender: AnyObject) {
+        let card = Card(id: UUID().uuidString, title: "new card", text: "Text")
         self.stack?.cards.append(card)
         self.tableView.reloadData()
+        
+        let stackStorage = StackStorage()
+        stackStorage.save(stack: stack!)
     }
     
-    @IBAction func backButtonHandler(sender: AnyObject) {
+    @IBAction func backButtonHandler(_ sender: AnyObject) {
         // buttonAnimation
         let viewControllers: [UIViewController?] = navigationController?.viewControllers.map { $0 } ?? []
         

@@ -11,8 +11,8 @@ import UIKit
 final class ApplicationCoordinator: BaseCoordinator {
     
     var tabController: CoreTabController
-    var rightTransitionDelegate = TabDelegate(direction: .Right)
-    var leftTransitionDelegate  = TabDelegate(direction: .Left)
+    var rightTransitionDelegate = TabDelegate(direction: .right)
+    var leftTransitionDelegate  = TabDelegate(direction: .left)
     
     init(tabController: CoreTabController) {
         self.tabController = tabController
@@ -22,7 +22,7 @@ final class ApplicationCoordinator: BaseCoordinator {
         tabController.onMenu = runMenu()
     }
     
-    private func runMenu() -> (() -> ()) {
+    fileprivate func runMenu() -> (() -> ()) {
         return {
             let controller = self.getController("MenuViewController", storyboardIdentifier: "Main") as! MenuViewController
             
@@ -45,7 +45,7 @@ final class ApplicationCoordinator: BaseCoordinator {
         }
     }
     
-    private func runLearningModeSelection() -> (() -> ()) {
+    fileprivate func runLearningModeSelection() -> (() -> ()) {
         return {
             let controller = self.getController("LearningModeSelectionViewController", storyboardIdentifier: "Main") as! LearningModeSelectionViewController
             
@@ -69,7 +69,7 @@ final class ApplicationCoordinator: BaseCoordinator {
         }
     }
     
-    private func runLearning(learningMode: LearningMode) -> (() -> ()) {
+    fileprivate func runLearning(_ learningMode: LearningMode) -> (() -> ()) {
         return {
             let storage = StackStorage()
             let stacks = storage.extractStacks()
@@ -90,7 +90,7 @@ final class ApplicationCoordinator: BaseCoordinator {
         }
     }
     
-    private func runInspector() -> (() -> ()) {
+    fileprivate func runInspector() -> (() -> ()) {
         return {
             let storage = StackStorage()
             let stacks = storage.extractStacks()
@@ -107,8 +107,6 @@ final class ApplicationCoordinator: BaseCoordinator {
                 let closure = self?.runMenu()
                 closure?()
                 self?.removeViewControllerFromTabStack(nav)
-                
-                storage.saveStacks(stacks)
             }
             
             self.addViewControllerToTabStack(nav)
@@ -120,7 +118,7 @@ final class ApplicationCoordinator: BaseCoordinator {
 
 extension ApplicationCoordinator {
     
-    func addViewControllerToTabStack(controller: UIViewController) {
+    func addViewControllerToTabStack(_ controller: UIViewController) {
         let tab: UITabBarController = self.tabController
         
         if tab.viewControllers == nil {
@@ -131,45 +129,45 @@ extension ApplicationCoordinator {
         }
     }
     
-    func removeViewControllerFromTabStack(controller: UIViewController) {
+    func removeViewControllerFromTabStack(_ controller: UIViewController) {
         let tab: UITabBarController = self.tabController
         guard tab.viewControllers != nil else {
             return
         }
         
-        for (index, item) in tab.viewControllers!.enumerate() {
+        for (index, item) in tab.viewControllers!.enumerated() {
             if ObjectIdentifier(item) == ObjectIdentifier(controller) {
-                tab.viewControllers!.removeAtIndex(index)
+                tab.viewControllers!.remove(at: index)
             }
         }
     }
     
-    func selectViewController(controller: UIViewController) {
+    func selectViewController(_ controller: UIViewController) {
         let tab: UITabBarController = self.tabController
         guard tab.viewControllers != nil else {
             return
         }
         
-        tab.selectedIndex = tab.viewControllers!.indexOf(controller)!
+        tab.selectedIndex = tab.viewControllers!.index(of: controller)!
     }
     
-    func getController(identifier: String, storyboardIdentifier: String) -> UIViewController {
+    func getController(_ identifier: String, storyboardIdentifier: String) -> UIViewController {
         let storyboard = UIStoryboard(name: storyboardIdentifier, bundle: nil)
-        return storyboard.instantiateViewControllerWithIdentifier(identifier)
+        return storyboard.instantiateViewController(withIdentifier: identifier)
     }
     
     func configureNavigationTabBar() {
         //transparent background
-        UINavigationBar.appearance().setBackgroundImage(UIImage(), forBarMetrics: .Default)
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         UINavigationBar.appearance().shadowImage     = UIImage()
-        UINavigationBar.appearance().translucent     = true
+        UINavigationBar.appearance().isTranslucent     = true
         
         let shadow = NSShadow()
         shadow.shadowOffset = CGSize(width: 0, height: 2)
         shadow.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.1)
         
         UINavigationBar.appearance().titleTextAttributes = [
-            NSForegroundColorAttributeName : UIColor.whiteColor(),
+            NSForegroundColorAttributeName : UIColor.white,
             NSShadowAttributeName: shadow
         ]
     }

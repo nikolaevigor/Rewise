@@ -27,32 +27,32 @@ class MenuViewController: UIViewController, MenuViewControllerOutput, CanPaintBa
         super.viewDidLoad()
     }
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
     
-    @IBAction func startButtonTouchUpOutside(sender: AnyObject) {
+    @IBAction func startButtonTouchUpOutside(_ sender: AnyObject) {
         self.startUnderline.alpha = 1.0
     }
     
-    @IBAction func startButtonTouchDown(sender: AnyObject) {
+    @IBAction func startButtonTouchDown(_ sender: AnyObject) {
         self.startUnderline.alpha = 0.3
     }
     
-    @IBAction func startButtonTouchUpInside(sender: AnyObject) {
+    @IBAction func startButtonTouchUpInside(_ sender: AnyObject) {
         self.startUnderline.alpha = 1.0
         onStart?()
     }
     
-    @IBAction func inspectCardsButtonTouchUpOutside(sender: AnyObject) {
+    @IBAction func inspectCardsButtonTouchUpOutside(_ sender: AnyObject) {
         self.inspectUnderline.alpha = 1.0
     }
     
-    @IBAction func inspectCardsButtonTouchDown(sender: AnyObject) {
+    @IBAction func inspectCardsButtonTouchDown(_ sender: AnyObject) {
         self.inspectUnderline.alpha = 0.3
     }
     
-    @IBAction func inspectCardsButtonTouchUpInside(sender: AnyObject) {
+    @IBAction func inspectCardsButtonTouchUpInside(_ sender: AnyObject) {
         self.inspectUnderline.alpha = 1.0
         onInspectCards?()
     }

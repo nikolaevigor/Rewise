@@ -43,44 +43,44 @@ class LearningViewController: UIViewController, LeariningCoordinatorOutput {
         redButton.layer.borderWidth   = 1.0
         greenButton.layer.borderWidth = 1.0
         blueButton.layer.borderWidth  = 1.0
-        redButton.layer.borderColor   = Constants.darkColor.CGColor
-        greenButton.layer.borderColor = Constants.darkColor.CGColor
-        blueButton.layer.borderColor  = Constants.darkColor.CGColor
+        redButton.layer.borderColor   = Constants.darkColor.cgColor
+        greenButton.layer.borderColor = Constants.darkColor.cgColor
+        blueButton.layer.borderColor  = Constants.darkColor.cgColor
         
         contentText.numberOfLines = 0
-        contentText.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        contentText.lineBreakMode = NSLineBreakMode.byWordWrapping
         contentText.textColor = Constants.darkColor
         self.scrollView.addSubview(contentText)
         
-        contentText.snp_makeConstraints(closure: { make in
+        contentText.snp.makeConstraints({ make in
             make.centerX.equalTo(self.scrollView)
-            make.leading.equalTo(self.scrollView.snp_leading).offset(10.0)
-            make.trailing.equalTo(self.scrollView.snp_trailing).offset(-10.0)
-            make.top.equalTo(self.scrollView.snp_top).offset(10.0)
-            make.bottom.equalTo(self.scrollView.snp_bottom).offset(-10.0)
+            make.leading.equalTo(self.scrollView.snp.leading).offset(10.0)
+            make.trailing.equalTo(self.scrollView.snp.trailing).offset(-10.0)
+            make.top.equalTo(self.scrollView.snp.top).offset(10.0)
+            make.bottom.equalTo(self.scrollView.snp.bottom).offset(-10.0)
         })
         
         let swipe = UISwipeGestureRecognizer(target: self, action: #selector(LearningViewController.showMenu))
-        swipe.direction = .Right
+        swipe.direction = .right
         self.view.addGestureRecognizer(swipe)
         
         allCards = extractCards(stacks)
         setRandomCard()
     }
     
-    @IBAction func redButtonPressed(sender: AnyObject) {
+    @IBAction func redButtonPressed(_ sender: AnyObject) {
         setRandomCard()
     }
     
-    @IBAction func greenButtonPressed(sender: AnyObject) {
+    @IBAction func greenButtonPressed(_ sender: AnyObject) {
         setRandomCard()
     }
     
-    @IBAction func blueButtonPressed(sender: AnyObject) {
+    @IBAction func blueButtonPressed(_ sender: AnyObject) {
         setRandomCard()
     }
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
     
@@ -88,7 +88,7 @@ class LearningViewController: UIViewController, LeariningCoordinatorOutput {
 
 extension LearningViewController {
     
-    func extractCards(stacks: [Stack]?) -> [Card] {
+    func extractCards(_ stacks: [Stack]?) -> [Card] {
         guard let stacks_ = stacks else {
             showStacksAlert()
             return []
@@ -124,7 +124,7 @@ extension LearningViewController {
         stacksAlert.textColor = Constants.darkColor
         self.scrollView.addSubview(stacksAlert)
         
-        stacksAlert.snp_makeConstraints(closure: { make in
+        stacksAlert.snp.makeConstraints({ make in
             make.centerX.equalTo(self.scrollView)
             make.centerY.equalTo(self.scrollView).offset(-20.0)
         })

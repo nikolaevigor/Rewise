@@ -18,7 +18,7 @@ class SettingsViewController: UIViewController, SettingsViewControllerOutput, Ca
         applyGradientOnBackground()
         
         let swipeBack = UISwipeGestureRecognizer(target: self, action: #selector(swipedBack))
-        swipeBack.direction = .Right
+        swipeBack.direction = .right
         self.view.addGestureRecognizer(swipeBack)
     }
     
@@ -26,7 +26,7 @@ class SettingsViewController: UIViewController, SettingsViewControllerOutput, Ca
         onCloseSettings?()
     }
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
 }

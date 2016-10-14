@@ -10,25 +10,25 @@ import UIKit
 
 final class RouterImp: Router {
     
-    private(set) weak var rootController: UINavigationController?
+    fileprivate(set) weak var rootController: UINavigationController?
     
     init(rootController: UINavigationController) {
         self.rootController = rootController
     }
     
-    func present(controller: UIViewController?) {
+    func present(_ controller: UIViewController?) {
         present(controller, animated: true)
     }
-    func present(controller: UIViewController?, animated: Bool) {
+    func present(_ controller: UIViewController?, animated: Bool) {
         guard let controller = controller else { return }
-        rootController?.presentViewController(controller, animated: animated, completion: nil)
+        rootController?.present(controller, animated: animated, completion: nil)
     }
     
-    func push(controller: UIViewController?)  {
+    func push(_ controller: UIViewController?)  {
         push(controller, animated: true)
     }
     
-    func push(controller: UIViewController?, animated: Bool)  {
+    func push(_ controller: UIViewController?, animated: Bool)  {
         guard let controller = controller else { return }
         rootController?.pushViewController(controller, animated: animated)
     }
@@ -37,15 +37,15 @@ final class RouterImp: Router {
         popController(true)
     }
     
-    func popController(animated: Bool)  {
-        rootController?.popViewControllerAnimated(animated)
+    func popController(_ animated: Bool)  {
+        _ = rootController?.popViewController(animated: animated)
     }
     
     func dismissController() {
         dismissController(true)
     }
     
-    func dismissController(animated: Bool) {
-        rootController?.dismissViewControllerAnimated(animated, completion: nil)
+    func dismissController(_ animated: Bool) {
+        rootController?.dismiss(animated: animated, completion: nil)
     }
 }

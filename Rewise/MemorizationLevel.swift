@@ -7,7 +7,7 @@
 //
 
 enum MemorizationLevel {
-    case Green
-    case Red
-    case Blue
+    case green
+    case red
+    case blue
 }

@@ -21,7 +21,7 @@ class InspectingStacksViewController: ExpandingViewController, CanPaintBackgroun
         super.viewDidLoad()
         applyGradientOnBackground()
         
-        navigationController?.interactivePopGestureRecognizer?.enabled = false
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         
         itemSize = CGSize(width: 256, height: 335)
         
@@ -33,30 +33,30 @@ class InspectingStacksViewController: ExpandingViewController, CanPaintBackgroun
         configureNavBar()
     }
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
 }
 
 extension InspectingStacksViewController {
     
-    private func registerCell() {
+    fileprivate func registerCell() {
         let nib = UINib(nibName: "StackCollectionViewCell", bundle: nil)
-        collectionView?.registerNib(nib, forCellWithReuseIdentifier: "collectioncell")
+        collectionView?.register(nib, forCellWithReuseIdentifier: "collectioncell")
     }
     
-    private func registerCreateCell() {
+    fileprivate func registerCreateCell() {
         let nib = UINib(nibName: "StackCollectionViewCreateCell", bundle: nil)
-        collectionView?.registerNib(nib, forCellWithReuseIdentifier: "collectioncreatecell")
+        collectionView?.register(nib, forCellWithReuseIdentifier: "collectioncreatecell")
     }
     
-    private func fillCellIsOpenArray() {
+    fileprivate func fillCellIsOpenArray() {
         for _ in stacks {
             cellsIsOpen.append(false)
         }
     }
     
-    private func getViewController(stack: Stack, index: Int) -> InspectorStacksTableViewController {
+    fileprivate func getViewController(_ stack: Stack, index: Int) -> InspectorStacksTableViewController {
         let toViewController = getController("InspectorStacksTableViewController", storyboardIdentifier: "Main") as! InspectorStacksTableViewController
         toViewController.stack = stack
         toViewController.onReturn = { [weak self] stack in
@@ -65,73 +65,82 @@ extension InspectingStacksViewController {
         return toViewController
     }
     
-    private func configureNavBar() {
-        navigationItem.leftBarButtonItem?.image = navigationItem.leftBarButtonItem?.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
-        navigationItem.rightBarButtonItem?.image = navigationItem.rightBarButtonItem?.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
+    fileprivate func configureNavBar() {
+        navigationItem.leftBarButtonItem?.image = navigationItem.leftBarButtonItem?.image!.withRenderingMode(UIImageRenderingMode.alwaysOriginal)
+        navigationItem.rightBarButtonItem?.image = navigationItem.rightBarButtonItem?.image!.withRenderingMode(UIImageRenderingMode.alwaysOriginal)
     }
     
 }
 
 extension InspectingStacksViewController {
     
-    private func addGestureToView(toView: UIView) {
-        let gesutereUp = Init(UISwipeGestureRecognizer(target: self, action: #selector(InspectingStacksViewController.swipeHandler(_:)))) {
-            $0.direction = .Up
+    fileprivate func addGestureToView(_ toView: UIView) {
+        let gestureUp = Init(UISwipeGestureRecognizer(target: self, action: #selector(InspectingStacksViewController.swipeHandler(_:)))) {
+            $0.direction = .up
         }
         
-        let gesutereDown = Init(UISwipeGestureRecognizer(target: self, action: #selector(InspectingStacksViewController.swipeHandler(_:)))) {
-            $0.direction = .Down
+        let gestureDown = Init(UISwipeGestureRecognizer(target: self, action: #selector(InspectingStacksViewController.swipeHandler(_:)))) {
+            $0.direction = .down
         }
-        toView.addGestureRecognizer(gesutereUp)
-        toView.addGestureRecognizer(gesutereDown)
+        toView.addGestureRecognizer(gestureUp)
+        toView.addGestureRecognizer(gestureDown)
     }
     
-    func swipeHandler(sender: UISwipeGestureRecognizer) {
-        let indexPath = NSIndexPath(forRow: currentIndex, inSection: 0)
-        guard let cell  = collectionView?.cellForItemAtIndexPath(indexPath) as? StackCollectionViewCell else { return }
+    func swipeHandler(_ sender: UISwipeGestureRecognizer) {
+        let indexPath = IndexPath(row: currentIndex, section: 0)
+        guard let cell  = collectionView?.cellForItem(at: indexPath) as? StackCollectionViewCell else { return }
         // double swipe Up transition
-        if cell.isOpened == true && sender.direction == .Up {
-            pushToViewController(getViewController(stacks[indexPath.row], index: indexPath.row))
+        if cell.isOpened == true && sender.direction == .up {
+            pushToViewController(getViewController(stacks[(indexPath as NSIndexPath).row], index: (indexPath as NSIndexPath).row))
             
             if let rightButton = navigationItem.rightBarButtonItem as? AnimatingBarButton {
                 rightButton.animationSelected(true)
             }
         }
         
-        let open = sender.direction == .Up ? true : false
+        let open = sender.direction == .up ? true : false
         cell.cellIsOpen(open)
-        cellsIsOpen[indexPath.row] = cell.isOpened
+        cellsIsOpen[(indexPath as NSIndexPath).row] = cell.isOpened
     }
     
 }
 
 extension InspectingStacksViewController {
     
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return stacks.count
     }
     
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(("collectioncell"), forIndexPath: indexPath) as! StackCollectionViewCell
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ("collectioncell"), for: indexPath) as! StackCollectionViewCell
         cell.title.text! = stacks[indexPath.row].title
-        cell.textField.userInteractionEnabled = true
+        cell.textField.isUserInteractionEnabled = true
         cell.onEditEnd = { [weak self] title in
-            self?.stacks[indexPath.row].title = title
+            self?.stacks[(indexPath as NSIndexPath).row].title = title
             self?.collectionView?.reloadData()
+            
+            let stackStorage = StackStorage()
+            
+            if let stack = self?.stacks[(indexPath as NSIndexPath).row] {
+                stackStorage.save(stack: stack)
+            }
+            else {
+                print("unable to save. stack is nil")
+            }
         }
         return cell
     }
     
-    func scrollViewWillBeginDecelerating(scrollView: UIScrollView) {
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.x < -120.0 {
             scrollView.setContentOffset(scrollView.contentOffset, animated: false)
             self.onCloseInspector?(self.stacks)
         }
     }
     
-    func getController(identifier: String, storyboardIdentifier: String) -> UIViewController {
+    func getController(_ identifier: String, storyboardIdentifier: String) -> UIViewController {
         let storyboard = UIStoryboard(name: storyboardIdentifier, bundle: nil)
-        return storyboard.instantiateViewControllerWithIdentifier(identifier)
+        return storyboard.instantiateViewController(withIdentifier: identifier)
     }
     
 }
@@ -140,15 +149,20 @@ extension InspectingStacksViewController {
 
 extension InspectingStacksViewController {
     
-    @IBAction func backButtonHandler(sender: AnyObject) {
+    @IBAction func backButtonHandler(_ sender: AnyObject) {
         self.onCloseInspector?(self.stacks)
     }
     
-    @IBAction func newStackButtonPressed(sender: AnyObject) {
-        stacks.append(Stack(title: "New stack", cards: []))
+    @IBAction func newStackButtonPressed(_ sender: AnyObject) {
+        let newStack = Stack(id: UUID().uuidString, title: "New stack", cards: [])
+        stacks.append(newStack)
+        
+        let stackStorage = StackStorage()
+        stackStorage.save(stack: newStack)
+        
         cellsIsOpen.append(false)
         self.collectionView?.reloadData()
-        let index = NSIndexPath(forItem: stacks.count - 1, inSection: 0)
-        self.collectionView?.selectItemAtIndexPath(index, animated: true, scrollPosition: UICollectionViewScrollPosition.CenteredHorizontally)
+        let index = IndexPath(item: stacks.count - 1, section: 0)
+        self.collectionView?.selectItem(at: index, animated: true, scrollPosition: UICollectionViewScrollPosition.centeredHorizontally)
     }
 }

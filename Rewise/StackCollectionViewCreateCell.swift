@@ -18,7 +18,7 @@ class StackCollectionViewCreateCell: BasePageCollectionCell {
         self.shadowView?.removeFromSuperview()
     }
     
-    @IBAction func newStackButtonPressed(sender: AnyObject) {
+    @IBAction func newStackButtonPressed(_ sender: AnyObject) {
         self.createNewStackLogic?()
     }
 }

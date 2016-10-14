@@ -9,31 +9,31 @@
 import Foundation
 
 struct Schedule {
-    var repetitions: [NSDate] = []
+    var repetitions: [Date] = []
     
-    init(repetitions: [NSDate]) {
+    init(repetitions: [Date]) {
         self.repetitions = repetitions
     }
     
     mutating func setForLongTime() {
-        let currentDate = NSDate()
+        let currentDate = Date()
         
-        let firstRepeat  = currentDate.dateByAddingTimeInterval(0)
-        let secondRepeat = currentDate.dateByAddingTimeInterval(30*60)
-        let thirdRepeat  = currentDate.dateByAddingTimeInterval(24*60*60)
-        let forthRepeat  = currentDate.dateByAddingTimeInterval(14*24*60*60)
-        let fifthRepeat  = currentDate.dateByAddingTimeInterval(60*24*60*60)
+        let firstRepeat  = currentDate.addingTimeInterval(0)
+        let secondRepeat = currentDate.addingTimeInterval(30*60)
+        let thirdRepeat  = currentDate.addingTimeInterval(24*60*60)
+        let forthRepeat  = currentDate.addingTimeInterval(14*24*60*60)
+        let fifthRepeat  = currentDate.addingTimeInterval(60*24*60*60)
         
         self.repetitions = [firstRepeat, secondRepeat, thirdRepeat, forthRepeat, fifthRepeat]
     }
     
     mutating func setForShortTime() {
-        let currentDate = NSDate()
+        let currentDate = Date()
         
-        let firstRepeat  = currentDate.dateByAddingTimeInterval(0)
-        let secondRepeat = currentDate.dateByAddingTimeInterval(20*60)
-        let thirdRepeat  = currentDate.dateByAddingTimeInterval(8*60*60)
-        let forthRepeat  = currentDate.dateByAddingTimeInterval(24*60*60)
+        let firstRepeat  = currentDate.addingTimeInterval(0)
+        let secondRepeat = currentDate.addingTimeInterval(20*60)
+        let thirdRepeat  = currentDate.addingTimeInterval(8*60*60)
+        let forthRepeat  = currentDate.addingTimeInterval(24*60*60)
         
         self.repetitions = [firstRepeat, secondRepeat, thirdRepeat, forthRepeat]
     }

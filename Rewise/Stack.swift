@@ -10,12 +10,14 @@ import Foundation
 
 struct Stack: Equatable {
     
+    var id: String
     var title: String
     var cards: [Card]
     
-    init(title: String, cards: [Card]) {
+    init(id: String, title: String, cards: [Card]) {
         self.title = title
         self.cards = cards
+        self.id = id
     }
     
 }

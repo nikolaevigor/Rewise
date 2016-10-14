@@ -10,13 +10,15 @@ import Foundation
 
 struct Card: Equatable {
     
+    var id: String
     var title: String
     var text: String
-    var lastTimeShown: NSDate?
+    var lastTimeShown: Date?
     
-    init(title: String, text: String) {
+    init(id: String, title: String, text: String) {
         self.title = title
         self.text = text
+        self.id = id
     }
     
 }

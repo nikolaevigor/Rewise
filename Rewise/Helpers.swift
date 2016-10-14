@@ -10,7 +10,7 @@ import UIKit
 
 protocol CanPaintBackground {
     func applyGradientOnBackground()
-    func createGradientLayer(colors: [CGColor], frame: CGRect) -> CAGradientLayer
+    func createGradientLayer(_ colors: [CGColor], frame: CGRect) -> CAGradientLayer
 }
 
 extension CanPaintBackground where Self: UIViewController {
@@ -19,11 +19,11 @@ extension CanPaintBackground where Self: UIViewController {
         let secondColor = UIColor(red: 248.0/255.0, green: 248.0/255.0, blue: 248.0/255.0, alpha: 1.0)
         let firstColor = UIColor(red: 248.0/255.0, green: 248.0/255.0, blue: 248.0/255.0, alpha: 1.0)
         
-        let layer = createGradientLayer([firstColor.CGColor, secondColor.CGColor], frame: self.view.frame)
-        self.view.layer.insertSublayer(layer, atIndex: 0)
+        let layer = createGradientLayer([firstColor.cgColor, secondColor.cgColor], frame: self.view.frame)
+        self.view.layer.insertSublayer(layer, at: 0)
     }
     
-    func createGradientLayer(colors: [CGColor], frame: CGRect) -> CAGradientLayer {
+    func createGradientLayer(_ colors: [CGColor], frame: CGRect) -> CAGradientLayer {
         let gradientLayer = CAGradientLayer()
         
         gradientLayer.colors = colors
@@ -42,8 +42,8 @@ extension UIView {
      - parameter corners: Corners to round
      - parameter radius:  Radius to round to
      */
-    func round(corners: UIRectCorner, radius: CGFloat) {
-        _round(corners, radius: radius)
+    func round(_ corners: UIRectCorner, radius: CGFloat) {
+        _ = _round(corners, radius: radius)
     }
     
     /**
@@ -54,7 +54,7 @@ extension UIView {
      - parameter borderColor: The border color
      - parameter borderWidth: The border width
      */
-    func round(corners: UIRectCorner, radius: CGFloat, borderColor: UIColor, borderWidth: CGFloat) {
+    func round(_ corners: UIRectCorner, radius: CGFloat, borderColor: UIColor, borderWidth: CGFloat) {
         let mask = _round(corners, radius: radius)
         addBorder(mask, borderColor: borderColor, borderWidth: borderWidth)
     }
@@ -66,30 +66,30 @@ extension UIView {
      - parameter borderColor: The border color
      - parameter borderWidth: The border width
      */
-    func fullyRound(diameter: CGFloat, borderColor: UIColor, borderWidth: CGFloat) {
+    func fullyRound(_ diameter: CGFloat, borderColor: UIColor, borderWidth: CGFloat) {
         layer.masksToBounds = true
         layer.cornerRadius = diameter / 2
         layer.borderWidth = borderWidth
-        layer.borderColor = borderColor.CGColor;
+        layer.borderColor = borderColor.cgColor;
     }
     
 }
 
 private extension UIView {
     
-    func _round(corners: UIRectCorner, radius: CGFloat) -> CAShapeLayer {
+    func _round(_ corners: UIRectCorner, radius: CGFloat) -> CAShapeLayer {
         let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
         let mask = CAShapeLayer()
-        mask.path = path.CGPath
+        mask.path = path.cgPath
         self.layer.mask = mask
         return mask
     }
     
-    func addBorder(mask: CAShapeLayer, borderColor: UIColor, borderWidth: CGFloat) {
+    func addBorder(_ mask: CAShapeLayer, borderColor: UIColor, borderWidth: CGFloat) {
         let borderLayer = CAShapeLayer()
         borderLayer.path = mask.path
-        borderLayer.fillColor = UIColor.clearColor().CGColor
-        borderLayer.strokeColor = borderColor.CGColor
+        borderLayer.fillColor = UIColor.clear.cgColor
+        borderLayer.strokeColor = borderColor.cgColor
         borderLayer.lineWidth = borderWidth
         borderLayer.frame = bounds
         layer.addSublayer(borderLayer)

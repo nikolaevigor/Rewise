@@ -19,23 +19,22 @@ class StackCollectionViewCell: BasePageCollectionCell, UITextFieldDelegate {
         super.awakeFromNib()
         
         self.backContainerView.layer.borderWidth = 0.5
-        self.backContainerView.layer.borderColor = UIColor(red: 85.0/255.0, green: 97.0/255.0, blue: 112/255.0, alpha: 1.0).CGColor
+        self.backContainerView.layer.borderColor = UIColor(red: 85.0/255.0, green: 97.0/255.0, blue: 112/255.0, alpha: 1.0).cgColor
     }
     
-    
-    @IBAction func editingBegin(sender: AnyObject) {
-        self.title.hidden = true
-        self.textField.hidden = false
+    @IBAction func editingBegin(_ sender: AnyObject) {
+        self.title.isHidden = true
+        self.textField.isHidden = false
     }
     
-    @IBAction func edititngEnd(sender: AnyObject) {
+    @IBAction func edititngEnd(_ sender: AnyObject) {
         self.title.text = self.textField.text!
-        self.title.hidden = false
+        self.title.isHidden = false
         
         self.onEditEnd?(self.title.text!)
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.endEditing(true)
         textField.text = ""
         return false

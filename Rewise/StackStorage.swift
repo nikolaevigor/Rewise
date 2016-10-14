@@ -10,91 +10,128 @@ import UIKit
 import RealmSwift
 import Realm
 
-class StackStorage {
+class StackStorage: StackStorageServiceProtocol {
     
     let realm = try! Realm()
-    lazy var stacks: Results<RealmStack> = { self.realm.objects(RealmStack) }()
+    let realmStorageService = RealmStorageMapper()
     
-    func saveStacks(stacks: [Stack]) {
+    func save(stacks: [Stack]) {
         
-        if stacks == unwrapStacks(realm.objects(RealmStack).map{$0}) {
-            return
-        }
-         
-        try! realm.write() {
-            realm.deleteAll()
-            for stack in stacks {
-                self.realm.add(wrapStack(stack))
+        for stack_ in stacks {
+            
+            let realmStack = realmStorageService.convertPlainToRealm(stack: stack_)
+            
+            try! realm.write {
+                realm.add(realmStack, update: true)
             }
         }
         
     }
     
-    func extractStacks() -> [Stack]? {
-        let stacks = realm.objects(RealmStack).map{$0}
-        return unwrapStacks(stacks)
+    func save(stack: Stack) {
+        
+        let realmStack = realmStorageService.convertPlainToRealm(stack: stack)
+        
+        try! realm.write {
+            realm.add(realmStack, update: true)
+        }
+        
     }
     
-}
+    func save(card: Card) {
+        
+        let realmCard = realmStorageService.convertPlainToRealm(card: card)
+        
+        try! realm.write {
+            realm.add(realmCard, update: true)
+        }
 
-func unwrapStacks(stacksRlm: [RealmStack]) -> [Stack] {
-    var stacks: [Stack] = []
-    for item in stacksRlm {
-        stacks.append(unwrapStack(item))
     }
-    return stacks
-}
-
-func unwrapStack(realmStack: RealmStack) -> Stack {
-    let stack = Stack(title: realmStack.title, cards: unwrapCards(realmStack.cards.map{$0}))
-    return stack
-}
-
-func unwrapCard(realmCard: RealmCard) -> Card {
-    let card = Card(title: realmCard.title, text: realmCard.text)
-    return card
-}
-
-func unwrapCards(cardsRlm: [RealmCard]) -> [Card] {
-    var cards: [Card] = []
-    for item in cardsRlm {
-        cards.append(unwrapCard(item))
+    
+    func delete(stack: Stack) {
+        
+        realm.delete(realm.object(ofType: RealmStack.self, forPrimaryKey: "\(stack.id)")!)
+        
     }
-    return cards
-}
-
-func wrapStack(stack: Stack) -> RealmStack {
-    let rlm = RealmStack()
-    rlm.title = stack.title
-    rlm.cards = wrapCards(stack.cards)
-    return rlm
-}
-
-func wrapCard(card: Card) -> RealmCard {
-    let rlm = RealmCard()
-    rlm.title = card.title
-    rlm.text = card.text
-    return rlm
-}
-
-func wrapCards(cards: [Card]) -> List<RealmCard> {
-    let rlm = List<RealmCard>()
-    for card in cards {
-        rlm.append(wrapCard(card))
+    
+    func delete(card: Card) {
+        
+        realm.delete(realm.object(ofType: RealmCard.self, forPrimaryKey: "\(card.id)")!)
+        
     }
-    return rlm
+    
+    func extractStacks() -> [Stack]? {
+        
+        let extractedStacks = realm.objects(RealmStack.self)
+        var stacks: [Stack] = []
+        
+        for realmStack in extractedStacks {
+            stacks.append(realmStack.plain())
+        }
+        
+        return stacks
+        
+    }
+    
+    func wipe() {
+        try! realm.write {
+            realm.deleteAll()
+        }
+    }
+    
 }
 
 class RealmStack: Object {
     
-    dynamic var title: String = ""
+    dynamic var id = ""
+    dynamic var title = ""
     var cards = List<RealmCard>()
     
+    convenience init(id: String, title: String, cards: [RealmCard]) {
+        self.init()
+        self.title = title
+        self.cards = List<RealmCard>()
+        self.id = id
+        
+        for card in cards {
+            self.cards.append(card)
+        }
+    }
+    
+    override class func primaryKey() -> String {
+        return "id"
+    }
+    
+    func plain() -> Stack {
+        var plainCards: [Card] = []
+        
+        for realmCard in self.cards {
+            plainCards.append(realmCard.plain())
+        }
+        
+        return Stack(id: self.id, title: self.title, cards: plainCards)
+    }
 }
 
 class RealmCard: Object {
     
-    dynamic var title: String = ""
-    dynamic var text: String = ""
+    dynamic var id = ""
+    dynamic var title = ""
+    dynamic var text = ""
+    
+    convenience init(id: String, title: String, text: String) {
+        self.init()
+        self.title = title
+        self.text = text
+        self.id = id
+    }
+    
+    override class func primaryKey() -> String {
+        return "id"
+    }
+    
+    func plain() -> Card {
+        return Card(id: self.id, title: self.title, text: self.text)
+    }
     
 }
